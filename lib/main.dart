@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // The main() function is the entry point for your app.
 void main() => runApp(BullsEyeApp());
@@ -6,6 +7,12 @@ void main() => runApp(BullsEyeApp());
 class BullsEyeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Set the orientation of the app tp landscape
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
     // Return a material app for our BullsEye app
     return MaterialApp(
       title: 'BullsEye',
@@ -29,7 +36,6 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   bool _alertIsInvisible = false;
-  bool _whosThereIsInvisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +54,6 @@ class _GamePageState extends State<GamePage> {
               this._alertIsInvisible = true;
               _showAlert(context);
               print("Button Pressed!");
-            },
-          ),
-          FlatButton(
-            child: Text('Knock, Knock!', style: TextStyle(color: Colors.blue)),
-            onPressed: () {
-              this._whosThereIsInvisible = true;
-              _showWhosThere(context);
             },
           ),
         ],
@@ -78,28 +77,6 @@ class _GamePageState extends State<GamePage> {
           return AlertDialog(
             title: Text("Hello there!"),
             content: Text("This is my first pop-up"),
-            actions: <Widget>[
-              okButton,
-            ],
-            elevation: 5,
-          );
-        });
-  }
-
-  void _showWhosThere(BuildContext context) {
-    // Button a user can click to dismiss the alert
-    Widget okButton = FlatButton(
-        child: Text("Owls say who?"),
-        onPressed: () {
-          Navigator.of(context).pop();
-          this._whosThereIsInvisible = false;
-        });
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Who's there?"),
-            content: Text("Owls say."),
             actions: <Widget>[
               okButton,
             ],
