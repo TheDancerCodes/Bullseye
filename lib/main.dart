@@ -29,6 +29,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   bool _alertIsInvisible = false;
+  bool _whosThereIsInvisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,14 @@ class _GamePageState extends State<GamePage> {
               _showAlert(context);
               print("Button Pressed!");
             },
-          )
+          ),
+          FlatButton(
+            child: Text('Knock, Knock!', style: TextStyle(color: Colors.blue)),
+            onPressed: () {
+              this._whosThereIsInvisible = true;
+              _showWhosThere(context);
+            },
+          ),
         ],
       ),
     ));
@@ -70,6 +78,28 @@ class _GamePageState extends State<GamePage> {
           return AlertDialog(
             title: Text("Hello there!"),
             content: Text("This is my first pop-up"),
+            actions: <Widget>[
+              okButton,
+            ],
+            elevation: 5,
+          );
+        });
+  }
+
+  void _showWhosThere(BuildContext context) {
+    // Button a user can click to dismiss the alert
+    Widget okButton = FlatButton(
+        child: Text("Owls say who?"),
+        onPressed: () {
+          Navigator.of(context).pop();
+          this._whosThereIsInvisible = false;
+        });
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Who's there?"),
+            content: Text("Owls say."),
             actions: <Widget>[
               okButton,
             ],
