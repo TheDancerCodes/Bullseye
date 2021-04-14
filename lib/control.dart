@@ -27,20 +27,28 @@ class _ControlState extends State<Control> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text("1"),
-        Slider(
-          value: _currentValue,
-          onChanged: (newValue) {
-            setState(() {
-              // Update current value of the control to new value of the slider
-              _currentValue = newValue;
-              print(_currentValue);
-            });
-          },
-          min: 1.0,
-          max: 100.0,
+        Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Text("1"),
         ),
-        Text("100"),
+        Expanded(
+          child: Slider(
+            value: _currentValue,
+            onChanged: (newValue) {
+              setState(() {
+                // Update current value of the control to new value of the slider
+                _currentValue = newValue;
+                print(_currentValue);
+              });
+            },
+            min: 1.0,
+            max: 100.0,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Text("100"),
+        ),
       ],
     );
   }
