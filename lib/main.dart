@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:BullsEye/prompt.dart';
 import 'package:BullsEye/control.dart';
+import 'package:BullsEye/score.dart';
 
 // The main() function is the entry point for your app.
 void main() => runApp(BullsEyeApp());
@@ -55,6 +56,10 @@ class _GamePageState extends State<GamePage> {
               _showAlert(context);
               print("Button Pressed!");
             },
+          ),
+          Score(
+            totalScore: 99999,
+            round: 999,
           ),
         ],
       ),
