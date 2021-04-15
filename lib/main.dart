@@ -82,6 +82,10 @@ class _GamePageState extends State<GamePage> {
     ));
   }
 
+  int _pointsForCurrentRound() {
+    return 999;
+  }
+
   // Code to show the alert
   void _showAlert(BuildContext context) {
     // Button a user can click to dismiss the alert
@@ -97,7 +101,8 @@ class _GamePageState extends State<GamePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text("Hello there!"),
-            content: Text("The slider's value is ${_model.current}"),
+            content: Text("The slider's value is ${_model.current}.\n" +
+                "You scored ${_pointsForCurrentRound()} points this round."),
             actions: <Widget>[
               okButton,
             ],
