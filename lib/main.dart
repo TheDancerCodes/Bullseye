@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:BullsEye/prompt.dart';
 import 'package:BullsEye/control.dart';
 import 'package:BullsEye/score.dart';
+import 'package:BullsEye/gamemodel.dart';
 
 // The main() function is the entry point for your app.
 void main() => runApp(BullsEyeApp());
@@ -39,6 +40,19 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   bool _alertIsInvisible = false;
+  GameModel _model;
+
+  /* To initialize the GameModel value, oveeride the init state method of
+  GamePageState.
+
+  We call the GameModel constructor, we pass in a target value of 50. 
+  Later we'll set that targetValue to a random value.
+  */
+  @override
+  void initState() {
+    super.initState();
+    _model = GameModel(50);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +61,8 @@ class _GamePageState extends State<GamePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Prompt(targetValue: 100),
-          Control(),
+          Prompt(targetValue: _model.target),
+          Control(model: _model),
           FlatButton(
             child: Text('Hit Me!', style: TextStyle(color: Colors.blue)),
             onPressed: () {
@@ -58,8 +72,8 @@ class _GamePageState extends State<GamePage> {
             },
           ),
           Score(
-            totalScore: 99999,
-            round: 999,
+            totalScore: _model.totalScore,
+            round: _model.round,
           ),
         ],
       ),
