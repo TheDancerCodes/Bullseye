@@ -69,10 +69,7 @@ class _GamePageState extends State<GamePage> {
             child: Text('Hit Me!', style: TextStyle(color: Colors.blue)),
             onPressed: () {
               _showAlert(context);
-              setState(() {
-                this._alertIsInvisible = true;
-                _model.totalScore += _pointsForCurrentRound();
-              });
+              this._alertIsInvisible = true;
             },
           ),
           Score(
@@ -103,7 +100,12 @@ class _GamePageState extends State<GamePage> {
         onPressed: () {
           Navigator.of(context).pop();
           this._alertIsInvisible = false;
-          print("Awesome pressed! $_alertIsInvisible");
+          setState(() {
+            _model.totalScore += _pointsForCurrentRound();
+
+            // Set a new target value on the model
+            _model.target = Random().nextInt(100) + 1;
+          });
         });
     showDialog(
         context: context,
