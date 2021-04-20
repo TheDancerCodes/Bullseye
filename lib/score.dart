@@ -34,7 +34,7 @@ class Score extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text("Round: "),
-              Text("999"),
+              Text("$round"),
             ],
           ),
         ),

@@ -105,6 +105,9 @@ class _GamePageState extends State<GamePage> {
 
             // Set a new target value on the model
             _model.target = Random().nextInt(100) + 1;
+
+            // Increment the round in the model
+            _model.round += 1;
           });
         });
     showDialog(
