@@ -87,7 +87,7 @@ class _GamePageState extends State<GamePage> {
     var maximumScore = 100; // Represents the max possible score on the slider
 
     // Tracks the difference between the target & current value of the slider
-    var difference = (_model.target - _sliderValue()).abs();
+    var difference = _amountOff();
 
     return maximumScore - difference;
   }
@@ -114,7 +114,7 @@ class _GamePageState extends State<GamePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Hello there!"),
+            title: Text(_alertTitle()),
             content: Text("The slider's value is ${_sliderValue()}.\n" +
                 "You scored ${_pointsForCurrentRound()} points this round."),
             actions: <Widget>[
@@ -123,5 +123,26 @@ class _GamePageState extends State<GamePage> {
             elevation: 5,
           );
         });
+  }
+
+  // Calculation for the difference of the targetValue & sliderVlaue
+  int _amountOff() => (_model.target - _sliderValue()).abs();
+
+  String _alertTitle() {
+    var difference = _amountOff();
+
+    String title;
+
+    if (difference == 0) {
+      title = "Perfect!";
+    } else if (difference < 5) {
+      title = "You almost had it!";
+    } else if (difference <= 10) {
+      title = "Not bad.";
+    } else {
+      title = "Are you even trying?";
+    }
+
+    return title;
   }
 }
