@@ -53,7 +53,7 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
-    _model = GameModel(Random().nextInt(100) + 1);
+    _model = GameModel(_newTargetValue());
   }
 
   @override
@@ -75,6 +75,7 @@ class _GamePageState extends State<GamePage> {
           Score(
             totalScore: _model.totalScore,
             round: _model.round,
+            onStartOver: _startNewGame,
           ),
         ],
       ),
@@ -100,6 +101,18 @@ class _GamePageState extends State<GamePage> {
     return maximumScore - difference + bonus;
   }
 
+  int _newTargetValue() => Random().nextInt(100) + 1;
+
+  void _startNewGame() {
+    // Update the model state to reflect that we are starting a new game
+    setState(() {
+      _model.totalScore = GameModel.SCORE_START;
+      _model.round = GameModel.ROUND_START;
+      _model.target = _newTargetValue();
+      _model.current = GameModel.SLIDER_START;
+    });
+  }
+
   // Code to show the alert
   void _showAlert(BuildContext context) {
     // Button a user can click to dismiss the alert
@@ -112,7 +125,7 @@ class _GamePageState extends State<GamePage> {
             _model.totalScore += _pointsForCurrentRound();
 
             // Set a new target value on the model
-            _model.target = Random().nextInt(100) + 1;
+            _model.target = _newTargetValue();
 
             // Increment the round in the model
             _model.round += 1;
