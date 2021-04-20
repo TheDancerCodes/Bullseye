@@ -89,7 +89,15 @@ class _GamePageState extends State<GamePage> {
     // Tracks the difference between the target & current value of the slider
     var difference = _amountOff();
 
-    return maximumScore - difference;
+    var bonus = 0;
+
+    if (difference == 0) {
+      bonus = 100;
+    } else if (difference == 1) {
+      bonus = 50;
+    }
+
+    return maximumScore - difference + bonus;
   }
 
   // Code to show the alert
