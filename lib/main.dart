@@ -19,6 +19,9 @@ class BullsEyeApp extends StatelessWidget {
       DeviceOrientation.landscapeRight,
     ]);
 
+    // Remove Android Status bar
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
     // Return a material app for our BullsEye app
     return MaterialApp(
       title: 'BullsEye',
@@ -58,28 +61,38 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Prompt(targetValue: _model.target),
-          Control(model: _model),
-          FlatButton(
-            child: Text('Hit Me!', style: TextStyle(color: Colors.blue)),
-            onPressed: () {
-              _showAlert(context);
-              this._alertIsInvisible = true;
-            },
-          ),
-          Score(
-            totalScore: _model.totalScore,
-            round: _model.round,
-            onStartOver: _startNewGame,
-          ),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        image: DecorationImage(
+          image: AssetImage("images/background.png"),
+          fit: BoxFit.cover,
+        ),
       ),
-    ));
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Prompt(targetValue: _model.target),
+                Control(model: _model),
+                FlatButton(
+                  child: Text('Hit Me!', style: TextStyle(color: Colors.blue)),
+                  onPressed: () {
+                    _showAlert(context);
+                    this._alertIsInvisible = true;
+                  },
+                ),
+                Score(
+                  totalScore: _model.totalScore,
+                  round: _model.round,
+                  onStartOver: _startNewGame,
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
   int _sliderValue() => _model.current;
